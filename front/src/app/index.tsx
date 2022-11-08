@@ -1,22 +1,42 @@
 import React from "react";
-import { ContainerCustom } from "./app.styled";
+import { CardsContainer, CardElement } from "./app.styled";
+
+function Card(props: any){
+  return (
+    <CardElement>
+      <div className="card-upper-section">
+        <div className="card-image-container"> </div>
+        <p>{props.response.status}</p>
+      </div>
+      <div className="card-lower-section">
+        <p>{props.response.name}</p>
+      </div>
+    </CardElement>
+  )
+}
+
+const card = {
+  response:{
+    image: "./assets/imgs/rick.jpeg",
+    name: "Rick Sanchez",
+    status: "alive"
+  }
+}
 
 export const App = () => {
-  const [count, setCount] = React.useState(0);
 
-  const sum = () => {
-    setCount(count + 1);
-  };
-
-  const sub = () => {
-    setCount(count - 1);
-  };
-
+  
   return (
-    <ContainerCustom>
-      <p>Contador: {count}</p>
-      <button onClick={sum}>+</button>
-      <button onClick={sub}>-</button>
-    </ContainerCustom>
+   <CardsContainer>
+{/* Estou testando como a section se comporta quando adicionamos vários cards */}
+      <Card response={card.response}/>
+      <Card response={card.response}/>
+      <Card response={card.response}/>
+      <Card response={card.response}/>
+      <Card response={card.response}/>
+      <Card response={card.response}/>
+      <Card response={card.response}/>
+      <Card response={card.response}/>
+   </CardsContainer>
   );
 };
