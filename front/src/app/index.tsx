@@ -1,22 +1,39 @@
 import React from "react";
-import { ContainerCustom } from "./app.styled";
+import { CardsContainer, CardElement } from "./app.styled";
+import { mock } from "./mock";
 
-export const App = () => {
-  const [count, setCount] = React.useState(0);
+function Card(props: any){
 
-  const sum = () => {
-    setCount(count + 1);
-  };
-
-  const sub = () => {
-    setCount(count - 1);
-  };
+  const backgroundImageStyle = {
+    background: `url(})`,
+    backgroundSize: `cover`
+  }
 
   return (
-    <ContainerCustom>
-      <p>Contador: {count}</p>
-      <button onClick={sum}>+</button>
-      <button onClick={sub}>-</button>
-    </ContainerCustom>
+    <CardElement>
+      <div className="card-upper-section">
+        <div className="card-image-container" style={backgroundImageStyle}> </div>
+        <p>{props.status}</p>
+      </div>
+      <div className="card-lower-section">
+        <p>{props.name}</p>
+      </div>
+    </CardElement>
+  )
+}
+
+export const App = () => {
+  const charArray = mock.data.characters.results;
+  const listChars = charArray.map((element)=>{
+    console.log(element.name)
+    return <Card key={element.id} response={element} />
+  })
+
+  
+
+  return (
+   <CardsContainer>
+    {listChars}
+   </CardsContainer>
   );
 };
