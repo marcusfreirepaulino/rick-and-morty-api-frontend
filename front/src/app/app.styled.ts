@@ -1,7 +1,5 @@
 import styled, { createGlobalStyle } from "styled-components";
 
-// 
-
 export const CardsContainer = styled.section`
   display: flex;
   justify-content: start;
@@ -69,8 +67,3 @@ export const GlobalStyles = createGlobalStyle`
 
 
 `;
-
-interface Props {
-  background: string;
-
-}
