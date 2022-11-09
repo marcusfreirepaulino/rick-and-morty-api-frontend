@@ -64,6 +64,5 @@ export const GlobalStyles = createGlobalStyle`
     color: #fff;
     border-bottom: #35383F 5px solid;
   }
-
-
 `;
+

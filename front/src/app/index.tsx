@@ -21,11 +21,7 @@ function Card(props: any){
   )
 }
 
-
-
-export const App = () => {
-
-  const GET_DATA = gql`
+const GetCharactersQuery = gql`
   query{
     characters{
       results{
@@ -37,18 +33,23 @@ export const App = () => {
     }
   }`;
 
-  function DisplayCards(){
-    const { loading, error, data } = useQuery(GET_DATA);
 
-    if(loading) return <p>Loading...</p>;
-    if(error) return <p>Error</p>;
+const DisplayCards = () => {
+  
+  const { loading, error, data } = useQuery(GetCharactersQuery);
 
-    const listChars = data.characters.results.map((element : any)  =>{
-      return <Card key={element.id} response={element} />
-    })
+  if(loading) return <p>Loading...</p>;
+  if(error) return <p>Error</p>;
 
-    return listChars
-  }
+  const listChars = data.characters.results.map((element : any)  =>{
+    return <Card key={element.id} response={element} />
+  })
+
+  return listChars
+}
+
+
+export const App = () => {
 
   return (
     <CardsContainer>
