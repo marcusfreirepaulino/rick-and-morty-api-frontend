@@ -50,7 +50,7 @@ export const GlobalStyles = createGlobalStyle`
   
   html, body{
     width: 100vw;
-    height: 10vh;
+    overflow-x: hidden;
     background-color: #232529;
 
   }
