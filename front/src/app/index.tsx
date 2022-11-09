@@ -1,11 +1,10 @@
-import React from "react";
 import { CardsContainer, CardElement } from "./app.styled";
-import { mock } from "./mock";
+import { gql, useQuery } from "@apollo/client"
 
 function Card(props: any){
 
   const backgroundImageStyle = {
-    background: `url(})`,
+    background: `url(${props.response.image})`,
     backgroundSize: `cover`
   }
 
@@ -13,27 +12,48 @@ function Card(props: any){
     <CardElement>
       <div className="card-upper-section">
         <div className="card-image-container" style={backgroundImageStyle}> </div>
-        <p>{props.status}</p>
+        <p>{props.response.status}</p>
       </div>
       <div className="card-lower-section">
-        <p>{props.name}</p>
+        <p>{props.response.name}</p>
       </div>
     </CardElement>
   )
 }
 
-export const App = () => {
-  const charArray = mock.data.characters.results;
-  const listChars = charArray.map((element)=>{
-    console.log(element.name)
+const GetCharactersQuery = gql`
+  query{
+    characters{
+      results{
+        id
+        name
+        status
+        image
+      }
+    }
+  }`;
+
+
+const DisplayCards = () => {
+  
+  const { loading, error, data } = useQuery(GetCharactersQuery);
+
+  if(loading) return <p>Loading...</p>;
+  if(error) return <p>Error</p>;
+
+  const listChars = data.characters.results.map((element : any)  =>{
     return <Card key={element.id} response={element} />
   })
 
-  
+  return listChars
+}
+
+
+export const App = () => {
 
   return (
-   <CardsContainer>
-    {listChars}
-   </CardsContainer>
+    <CardsContainer>
+      <DisplayCards />
+    </CardsContainer>
   );
 };

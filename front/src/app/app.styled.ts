@@ -50,7 +50,7 @@ export const GlobalStyles = createGlobalStyle`
   
   html, body{
     width: 100vw;
-    height: 10vh;
+    overflow-x: hidden;
     background-color: #232529;
 
   }
@@ -64,6 +64,5 @@ export const GlobalStyles = createGlobalStyle`
     color: #fff;
     border-bottom: #35383F 5px solid;
   }
-
-
 `;
+
