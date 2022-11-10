@@ -1,22 +1,21 @@
-import { CardsContainer, CardElement } from "./app.styled";
+import { 
+  CardsContainer, CardElement, BackgroundImageStyle, 
+  CardUpperSection, CardLowerSection, CardStatusText } from "./app.styled";
 import { gql, useQuery } from "@apollo/client"
 
-function Card(props: any){
-
-  const backgroundImageStyle = {
-    background: `url(${props.response.image})`,
-    backgroundSize: `cover`
-  }
+const Card = (props: any) =>{
 
   return (
     <CardElement>
-      <div className="card-upper-section">
-        <div className="card-image-container" style={backgroundImageStyle}> </div>
-        <p>{props.response.status}</p>
-      </div>
-      <div className="card-lower-section">
+      <CardUpperSection>
+        <BackgroundImageStyle image={props.response.image}/>
+        <CardStatusText status={props.response.status}>
+          {props.response.status}
+        </CardStatusText>
+      </CardUpperSection>
+      <CardLowerSection>
         <p>{props.response.name}</p>
-      </div>
+      </CardLowerSection>
     </CardElement>
   )
 }
@@ -56,4 +55,4 @@ export const App = () => {
       <DisplayCards />
     </CardsContainer>
   );
-};
+}

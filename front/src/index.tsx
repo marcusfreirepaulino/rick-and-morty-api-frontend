@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { App} from "@app";
-import { GlobalStyles } from "@app/app.styled";
+import { GlobalStyles, HeaderElement } from "@app/app.styled";
 import { ApolloProvider, ApolloClient, InMemoryCache } from "@apollo/client"
 
 const client = new ApolloClient({
@@ -12,6 +12,10 @@ const client = new ApolloClient({
 
 ReactDOM.render(
   <React.StrictMode>
+    <HeaderElement>
+      <img src="./assets/imgs/logo.png" alt="" width="10%"/>
+      <h1>Rick & Morty Cards</h1>
+    </HeaderElement>
     <ApolloProvider client={client}>
       <GlobalStyles/>
       <App/>
