@@ -1,12 +1,13 @@
 import { 
   CardsContainer, CardElement, BackgroundImageStyle, 
-  CardUpperSection, CardLowerSection, CardStatusText } from "./app.styled";
+  CardUpperSection, CardLowerSection, CardStatusText, ModalElement } from "./app.styled";
 import { gql, useQuery } from "@apollo/client"
 
 const Card = (props: any) =>{
 
+
   return (
-    <CardElement>
+    <CardElement onClick={props.onClick}>
       <CardUpperSection>
         <BackgroundImageStyle image={props.response.image}/>
         <CardStatusText status={props.response.status}>
@@ -33,7 +34,7 @@ const GetCharactersQuery = gql`
   }`;
 
 
-const DisplayCards = () => {
+const DisplayCards = (props : any) => {
   
   const { loading, error, data } = useQuery(GetCharactersQuery);
 
@@ -41,10 +42,10 @@ const DisplayCards = () => {
   if(error) return <p>Error</p>;
 
   const listChars = data.characters.results.map((element : any)  =>{
-    return <Card key={element.id} response={element} />
+    return <Card key={element.id} response={element} onClick={() => {props.onClick(element.name, element.id)}}/>
   })
 
-  return listChars
+  return listChars;
 }
 
 
@@ -52,7 +53,7 @@ export const App = () => {
 
   return (
     <CardsContainer>
-      <DisplayCards />
+      <DisplayCards onClick={(name: any, id: any) =>{alert(`${name}: ${id}`)}} />
     </CardsContainer>
   );
 }

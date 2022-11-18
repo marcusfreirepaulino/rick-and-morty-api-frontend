@@ -3,6 +3,7 @@ import styled, { createGlobalStyle } from "styled-components";
 interface Props{
   status?: string;
   image?: string;
+  onClick? : any;
 }
 
 
@@ -46,7 +47,7 @@ export const CardsContainer = styled.section`
   width: 100vw;
 `
 
-export const CardElement = styled.div`
+export const CardElement = styled.div<Props>`
   display: flex;
   flex-direction: column;
   justify-content:space-between;
@@ -96,3 +97,11 @@ export const CardStatusText = styled.div<Props>`
   };
   border: black 1px solid;
 `;
+
+export const ModalElement = styled.div<Props>`
+  background-color: #8A9E9F; 
+  border-radius: .4em;
+
+
+
+`
