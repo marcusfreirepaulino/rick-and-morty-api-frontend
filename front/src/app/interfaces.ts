@@ -22,3 +22,13 @@ export interface ModalElementProps{
     showModal: boolean;
     modalData: CharacterProps | any;
 }
+
+export interface ButtonPrevProps{
+    onClick: () => void;
+    prev: number | null;
+}
+
+export interface ButtonNextProps{
+    onClick: () => void;
+    next: number | null;
+}

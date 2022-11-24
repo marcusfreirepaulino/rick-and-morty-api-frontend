@@ -43,7 +43,7 @@ const GetCharactersQuery = (page : number) => {
   }`;
 }
 
-const DisplayCards: React.FC = (props: any) => {
+const DisplayCards: React.FC = () => {
   const [pageNumber, setPageNumber] = React.useState(1);
   const [showModal, setShowModal] = React.useState(false);
   const [modalData, setModalData] = React.useState({});

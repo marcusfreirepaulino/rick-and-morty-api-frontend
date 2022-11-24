@@ -1,4 +1,6 @@
-export const ButtonBack = (props: any) =>{
+import { ButtonNextProps, ButtonPrevProps } from "./interfaces";
+
+export const ButtonBack = (props: ButtonPrevProps) =>{
     if(props.prev == null) return null;
     
     return (
@@ -8,7 +10,7 @@ export const ButtonBack = (props: any) =>{
     )
 }
 
-export const ButtonNext = (props: any) =>{
+export const ButtonNext = (props: ButtonNextProps) =>{
     if(props.next == null) return null;
     return (
         <button onClick={props.onClick}>
