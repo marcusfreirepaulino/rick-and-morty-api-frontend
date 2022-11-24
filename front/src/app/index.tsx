@@ -1,19 +1,14 @@
-import {
-  CardsContainer, CardElement, BackgroundImageStyle,
-  CardUpperSection, CardLowerSection, CardStatusText
-} from "./app.styled";
-import * as React from 'react';
-import { ModalElement } from "./modal";
-import { CardsProps, CharacterProps } from "./interfaces";
+import { 
+  CardsContainer, CardElement, BackgroundImageStyle, 
+  CardUpperSection, CardLowerSection, CardStatusText } from "./app.styled";
 import { gql, useQuery } from "@apollo/client"
-import { ButtonBack, ButtonNext } from "./button";
 
-const Card = (props: CardsProps) => {
+const Card = (props: any) =>{
 
   return (
-    <CardElement onClick={props.onClick}>
+    <CardElement>
       <CardUpperSection>
-        <BackgroundImageStyle image={props.response.image} />
+        <BackgroundImageStyle image={props.response.image}/>
         <CardStatusText status={props.response.status}>
           {props.response.status}
         </CardStatusText>
@@ -25,14 +20,9 @@ const Card = (props: CardsProps) => {
   )
 }
 
-const GetCharactersQuery = (page : number) => {
-  return gql`
+const GetCharactersQuery = gql`
   query{
-    characters(page: ${page}){
-      info{
-        prev
-        next
-      }
+    characters{
       results{
         id
         name
@@ -41,47 +31,28 @@ const GetCharactersQuery = (page : number) => {
       }
     }
   }`;
-}
 
-const DisplayCards: React.FC = (props: any) => {
-  const [pageNumber, setPageNumber] = React.useState(1);
-  const [showModal, setShowModal] = React.useState(false);
-  const [modalData, setModalData] = React.useState({});
 
-  const { loading, error, data } = useQuery(GetCharactersQuery(pageNumber));
+const DisplayCards = () => {
+  
+  const { loading, error, data } = useQuery(GetCharactersQuery);
 
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error</p>;
+  if(loading) return <p>Loading...</p>;
+  if(error) return <p>Error</p>;
 
-  const listChars = data.characters.results.map((element: CharacterProps) => {
-    return <Card key={element.id} response={element} onClick={() => {
-      setShowModal(true);
-      setModalData(element);
-      // Hides the page vertical scroll while a modal is open
-      document.querySelector('html')!.style.overflowY = "hidden"
-    }} />
+  const listChars = data.characters.results.map((element : any)  =>{
+    return <Card key={element.id} response={element} />
   })
 
-  return <>
-    <ModalElement showModal={showModal} closeModal={() => {
-      //  Brings the vertical scroll back
-      document.querySelector('html')!.style.overflowY = "auto";
-      setShowModal(false);
-    }} modalData={modalData} cleanModalData={() => setModalData({})} />
-    {listChars}
-    <ButtonBack onClick={() => setPageNumber(pageNumber - 1)} prev={data.characters.info.prev} />
-    <ButtonNext onClick={() => setPageNumber(pageNumber + 1)} next={data.characters.info.next}/>
-    
-  </>;
+  return listChars
 }
 
 
 export const App = () => {
 
-
   return (
     <CardsContainer>
-      <DisplayCards/>
+      <DisplayCards />
     </CardsContainer>
   );
 }
